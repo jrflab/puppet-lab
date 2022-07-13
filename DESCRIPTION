@@ -1,5 +1,5 @@
 Type: Package
-Package: puppet-lab
+Package: puppetlab
 Version: 0.0-1
 Date: 2022-07-13
 Title: Puppet Lab

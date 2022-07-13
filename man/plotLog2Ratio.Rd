@@ -1,7 +1,7 @@
-\name{adjustTMPstableSubclone}
-\alias{adjustTMPstableSubclone}
+\name{plotlog2ratio}
+\alias{plotlog2ratio}
 \title{
-adjustTMPstableSubclone
+plotlog2ratio
 }
 \description{
 
@@ -19,9 +19,6 @@ adjustTMPstableSubclone
 
 }
 \author{
-Tatiana Popova\cr
-\email{tatiana.popova@curie.fr}\cr
-\url{http://bioinfo.curie.fr/projects/snp_gap/}
 }
 \seealso{
 
