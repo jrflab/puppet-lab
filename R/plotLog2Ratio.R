@@ -15,7 +15,9 @@
 				  N = num.mark)
 	pruned = puppetlab::prune(x = segmented, n = num_levels)
 	pruned = pruned %>%
-		 dplyr::mutate(N = cumsum(N))
+		 dplyr::mutate(N = cumsum(N)) %>%
+		 dplyr::mutate(Start = c(1, 1+N[1:(nrow(.)-1)])) %>%
+		 dplyr::mutate(End = N)
 	cytoband = log2ratio %>%
 		   dplyr::group_by(Chromosome) %>%
 		   dplyr::summarize(Start = min(Position),
@@ -25,13 +27,17 @@
 	plot_ = log2ratio %>%
 		ggplot(mapping = aes(x = Position, y = Log2Ratio)) +
 		geom_point(stat = "identity", shape = 1, size = 1, color = "black") +
+		geom_segment(mapping = aes(x = Start, y = Log2Ratio, xend = End, yend = Log2Ratio), data = pruned, color = "red", size = 1.5, inherit.aes = FALSE) +
 		xlab("\n\nChromosome\n") +
                 ylab(expression(Log[2]~"Ratio")) +
                 scale_x_continuous(breaks = cytoband[["Centromere"]],
 				   labels = c(1:22, "X"),
 				   minor_breaks = c(cytoband[["Start"]], cytoband[["End"]][23])) +
-		scale_y_continuous(limits = c(-5, 5)) +
-                theme(plot.margin = unit(c(1, 1, 3, 1), "lines"))
+		scale_y_continuous(limits = c(-5, 5),
+				   sec.axis = sec_axis(trans = ~(((2^(.))*((purity*ploidy) + (1-purity)*2)) - 2*(1-purity))/purity,
+				  		       breaks = c(1, 2, 3, 4, 5, 10, 15, 20, 25, 40, 50)),
+				   		       name = expression(Log[2]~"Ratio")) +
+                theme(plot.margin = unit(c(1, 1, 3, 2), "lines"))
 		
 	return(invisible(plot_))
 }
