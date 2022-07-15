@@ -7,7 +7,7 @@ Author: David Brown <brownd7@mskcc.org>
 Description: Various subroutines for plotting
 Maintainer: David Brown <brownd7@mskcc.org>
 URL:
-Depends: R (>= 3.0.1), ggplot2, dplyr, readr, magrittr
+Depends: R (>= 3.0.1), ggplot2, dplyr, readr, magrittr, gridExtra
 License: GPL (>= 2)
 biocViews:
 LazyLoad: yes

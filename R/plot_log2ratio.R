@@ -1,5 +1,13 @@
-'plotlog2ratio' <- function(facets, num_levels = 10, purity = 1, ploidy = 2)
+'plot_log2ratio' <- function(facets, num_levels = 10, purity = NA, ploidy = NA)
 {
+	if (is.na(purity)) {
+		purity = facets$cncf$purity
+	}
+	
+	if (is.na(ploidy)) {
+		ploidy = facets$cncf$ploidy
+	}
+	
 	log2ratio = facets$jointseg %>%
 		    dplyr::as_tibble() %>%
 		    dplyr::mutate(maploc = 1:nrow(.)) %>%
@@ -26,7 +34,7 @@
 	
 	plot_ = log2ratio %>%
 		ggplot(mapping = aes(x = Position, y = Log2Ratio)) +
-		geom_point(stat = "identity", shape = 1, size = 1, color = "black") +
+		geom_point(stat = "identity", shape = 1, size = .75, color = "grey10") +
 		geom_segment(mapping = aes(x = Start, y = Log2Ratio, xend = End, yend = Log2Ratio), data = pruned, color = "red", size = 1.5, inherit.aes = FALSE) +
 		xlab("\n\nChromosome\n") +
                 ylab(expression(Log[2]~"Ratio")) +
@@ -37,7 +45,7 @@
 				   sec.axis = sec_axis(trans = ~(((2^(.))*((purity*ploidy) + (1-purity)*2)) - 2*(1-purity))/purity,
 				  		       breaks = c(1, 2, 3, 4, 5, 10, 15, 20, 25, 40, 50)),
 				   		       name = expression(Log[2]~"Ratio")) +
-                theme(plot.margin = unit(c(1, 1, 3, 2), "lines"))
-		
+                theme(plot.margin = unit(c(1, 1, 3, 2), "lines"),
+		      axis.text.y.right = element_text(size = 6))
 	return(invisible(plot_))
 }

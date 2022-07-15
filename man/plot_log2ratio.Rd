@@ -1,7 +1,7 @@
-\name{plotlog2ratio}
-\alias{plotlog2ratio}
+\name{plot_log2ratio}
+\alias{plot_log2ratio}
 \title{
-plotlog2ratio
+plot_log2ratio
 }
 \description{
 
